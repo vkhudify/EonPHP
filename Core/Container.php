@@ -9,17 +9,20 @@ class Container {
     private $aliases = [];      // Псевдонимы
 
     // Регистрируем обычный сервис
-    public function register($name, $service) {
+    public function register($name, $service): void
+    {
         $this->services[$name] = $service;
     }
 
     // Регистрируем фабрику для отложенной загрузки
-    public function bind($name, $callback) {
+    public function bind($name, $callback): void
+    {
         $this->factories[$name] = $callback;
     }
 
     // Регистрируем синглтон (экземпляр, который будет создан один раз)
-    public function singleton($name, $callback) {
+    public function singleton($name, $callback): void
+    {
         $this->bind($name, function($container) use ($callback) {
             static $instance = null;
             if ($instance === null) {
@@ -30,7 +33,8 @@ class Container {
     }
 
     // Регистрируем псевдоним для интерфейсов или классов
-    public function alias($alias, $original) {
+    public function alias($alias, $original): void
+    {
         $this->aliases[$alias] = $original;
     }
 
